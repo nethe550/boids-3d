@@ -1,0 +1,295 @@
+:root {
+
+    --font-family-default: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    --font-family-monospace: 'Courier New', Courier, monospace;
+
+    --radius-1: 12px;
+    --radius-2: 6px;
+    --radius-3: 3px;
+
+    --time-1: 62.5ms;
+    --time-2: 125ms;
+
+}
+
+@media (prefers-color-scheme: dark) {
+
+    :root {
+        --font-color-1: rgb(255,255,255);
+        --font-color-2: rgb(191,191,191);
+        --font-color-3: rgb(127,127,127);
+
+        --color-1: rgb(35,35,40);
+        --color-2: rgb(45,45,50);
+        --color-3: rgb(55,55,60);
+        --color-4: rgb(65,65,70);
+    }
+
+}
+
+@media (prefers-color-scheme: light) {
+
+    :root {
+        --font-color-1: rgb(0,0,0);
+        --font-color-2: rgb(31,31,31);
+        --font-color-3: rgb(64,64,64);
+
+        --color-1: rgb(250,250,255);
+        --color-2: rgb(230,230,240);
+        --color-3: rgb(210,210,220);
+        --color-4: rgb(190,190,200);
+    }
+
+}
+
+* {
+
+    box-sizing: border-box;
+
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-3) var(--color-2);
+
+}
+
+input {
+
+    font-family: var(--font-family-monospace);
+    color: var(--font-color-3);
+
+    background: var(--color-1);
+
+    border: 1px solid var(--color-3);
+    border-radius: var(--radius-3);
+
+    outline: none;
+
+    transition: all var(--time-1) ease-in-out;
+
+}
+
+input:hover {
+
+    color: var(--font-color-2);
+
+    background: var(--color-3);
+
+    border-color: var(--color-4);
+
+}
+
+input:active {
+
+    color: var(--font-color-1);
+
+    background: var(--color-4);
+
+    border-color: var(--color-1);
+
+}
+
+input:focus {
+
+    color: var(--font-color-1);
+    
+    background: var(--color-4);
+
+    border-color: var(--font-color-2);
+
+}
+
+input[type="number"] {
+
+    appearance: unset;
+    -moz-appearance: textfield;
+
+}
+
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {
+
+    appearance: none;
+
+}
+
+select {
+
+    font-family: var(--font-family-monospace);
+    color: var(--font-color-3);
+
+    background: var(--color-1);
+
+    border: 1px solid var(--color-3);
+    border-radius: var(--radius-3);
+
+    outline: none;
+
+    transition: all var(--time-1) ease-in-out;
+
+}
+
+select:hover {
+
+    color: var(--font-color-2);
+
+    background: var(--color-3);
+    
+    border-color: var(--color-4);
+
+}
+
+select:active {
+
+    color: var(--font-color-1);
+
+    background: var(--color-4);
+
+    border-color: var(--color-1);
+
+}
+
+select:focus {
+
+    color: var(--font-color-1);
+
+    background: var(--color-4);
+
+    border-color: var(--font-color-2);
+
+}
+
+button {
+
+    color: var(--font-color-3);
+
+    background: var(--color-1);
+
+    border: 1px solid var(--color-3);
+    border-radius: var(--radius-2);
+
+    outline: none;
+
+    transition: all var(--time-1) ease-in-out;
+
+    cursor: pointer;
+
+}
+
+button:hover {
+
+    color: var(--font-color-2) !important;
+
+    background: var(--color-3) !important;
+
+    border-color: var(--color-4);
+
+}
+
+button:active {
+
+    color: var(--font-color-1) !important;
+
+    background: var(--color-4) !important;
+
+    border-color: var(--color-1);
+
+}
+
+button:focus {
+
+    border-color: var(--font-color-2);
+
+}
+
+html, body {
+
+    font-family: var(--font-family-default);
+    color: var(--font-color-1);
+
+    z-index: 0;
+
+    margin: 0;
+    padding: 0;
+
+    background: var(--color-1);
+
+}
+
+body {
+
+    padding: var(--radius-1);
+
+}
+
+div.panel {
+
+    background: var(--color-2);
+
+    border-radius: var(--radius-1);
+
+}
+
+div.panel:not(div.panel#display-panel) {
+
+    padding: var(--radius-1);
+
+}
+
+div.panel#display-panel {
+
+    overflow: hidden;
+
+}
+
+@media screen and (min-width: 775px) {
+
+    html, body {
+
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+
+        width: 100vw;
+        height: 100vh;
+
+    }
+
+    div#page {
+
+        display: flex;
+        flex-direction: row;
+        column-gap: var(--radius-1);
+
+    }
+
+    div.panel {
+
+        height: calc(100vh - var(--radius-1) * 2);
+
+    }
+
+    div.panel#display-panel {
+
+        flex-grow: 1;
+
+    }
+
+}
+
+@media screen and (max-width: 775px) {
+
+    div#page {
+
+        display: flex;
+        flex-direction: column;
+        row-gap: var(--radius-1);
+
+    }
+
+    div.panel#display-panel {
+
+        height: calc(90vh - var(--radius-1) * 2);
+
+    }
+
+}

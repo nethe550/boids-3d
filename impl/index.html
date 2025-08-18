@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <meta name="author" content="nethe550" />
+        <meta name="description" content="An interactive three-dimensional bird flocking simulation." />
+        <title>3D Bird Flocking Simulation</title>
+        <link rel="stylesheet" href="./static/css/index.css" />
+        <link rel="stylesheet" href="./static/css/control.css" />
+    </head>
+    <body>
+        <div id="page">
+            <div class="panel" id="display-panel">
+                <canvas id="display"></canvas>
+            </div>
+            <div class="panel" id="control-panel">
+                <fieldset class="control" data-name="projection">
+                    <legend>Projection</legend>
+                    <div class="control-grid">
+                        <label for="projection-fov">Field of View: </label>
+                        <input id="projection-fov" name="projection-fov" type="number" min="1" max="179" step="1" value="60" placeholder="...FOV" title="Camera field of view (degrees)." />
+                        <span class="units" id="projection-fov-units">°</span>
+                        <label for="projection-near">Near Plane: </label>
+                        <input id="projection-near" name="projection-near" type="number" min="0.001" value="0.01" placeholder="...Near plane" title="Camera frustum near plane distance (units)." />
+                        <span class="units" id="projection-near-units">u</span>
+                        <label for="projection-far">Far Plane: </label>
+                        <input id="projection-far" name="projection-far" type="number" min="0.001" value="100" placeholder="...Far plane" title="Camera frustum far plane distance (units)." />
+                        <span class="units" id="projection-far-units">u</span>
+                    </div>
+                </fieldset>
+                <fieldset class="control" data-name="view">
+                    <legend>View</legend>
+                    <div class="control-options">
+                        <button class="control-option" id="view-orbit" data-selected="true" title="Orbit camera controls.">Orbit</button>
+                        <button class="control-option" id="view-manual" data-selected="false" title="Manual camera controls.">Manual</button>
+                    </div>
+                    <div class="control-grid" data-type="vector" style="display: none;">
+                        <label for="view-pos-x">x: </label>
+                        <input id="view-pos-x" name="view-pos-x" type="number" value="0" placeholder="x" title="Camera X position." />
+                        <span class="units" id="view-pos-x-units">u</span>
+                        <label for="view-pos-y">y: </label>
+                        <input id="view-pos-y" name="view-pos-y" type="number" value="0" placeholder="y" title="Camera Y position." />
+                        <span class="units" id="view-pos-y-units">u</span>
+                        <label for="view-pos-z">z: </label>
+                        <input id="view-pos-z" name="view-pos-z" type="number" value="0" placeholder="z" title="Camera z position." />
+                        <span class="units" id="view-pos-z-units">u</span>
+                        <label for="view-pitch">pi: </label>
+                        <input id="view-pitch" name="view-pitch" type="number" value="0" placeholder="pitch" title="Camera X rotation (pitch)." />
+                        <span class="units" id="view-pitch-units">°</span>
+                        <label for="view-yaw">ya: </label>
+                        <input id="view-yaw" name="view-yaw" type="number" value="0" placeholder="yaw" title="Camera Y rotation (yaw)." />
+                        <span class="units" id="view-yaw-units">°</span>
+                        <label for="view-roll">ro: </label>
+                        <input id="view-roll" name="view-roll" type="number" value="0" placeholder="roll" title="Camera Z rotation (roll)." />
+                        <span class="units" id="view-roll-units">°</span>
+                    </div>
+                </fieldset>
+                <fieldset class="control" data-name="boids">
+                    <legend>Boids</legend>
+                    <div class="control-region" data-region="environment">
+                        <h4>Environment</h4>
+                        <div class="control-grid">
+                            <label for="boids-count">Count: </label>
+                            <input id="boids-count" name="boids-count" type="number" min="1" step="1" value="64" placeholder="Count" title="Number of boids." />
+                            <label for="boids-accuracy">Accuracy: </label>
+                            <input id="boids-accuracy" name="boids-accuracy" type="number" min="-1" step="1" value="32" placeholder="Accuracy" title="Maximum number of neighbors considered in integration." />
+                            <label for="boids-drag">Drag: </label>
+                            <input id="boids-drag" name="boids-drag" type="number" min="0" value="0.005" placeholder="Drag" title="Resistance to motion applied every integration step." />
+                            <label for="boids-randomness">Randomness: </label>
+                            <input id="boids-randomness" name="boids-randomness" type="number" min="0" value="0.001" placeholder="Randomness" title="Magnitude of random motion applied every integration step." />
+                        </div>
+                        <hr />
+                        <div class="control-grid" data-type="vector">
+                            <label for="boids-min-x">-x: </label>
+                            <input id="boids-min-x" name="boids-min-x" type="number" value="-5" placeholder="-x" title="Minimum simulation X-axis bound." />
+                            <span class="units" id="boids-min-x-units">u</span>
+                            <label for="boids-min-y">-y: </label>
+                            <input id="boids-min-y" name="boids-min-y" type="number" value="-5" placeholder="-y" title="Minimum simulation Y-axis bound." />
+                            <span class="units" id="boids-min-y-units">u</span>
+                            <label for="boids-min-z">-z: </label>
+                            <input id="boids-min-z" name="boids-min-z" type="number" value="-5" placeholder="-z" title="Minimum simulation Z-axis bound." />
+                            <span class="units" id="boids-min-z-units">u</span>
+
+                            <label for="boids-max-x">+x: </label>
+                            <input id="boids-max-x" name="boids-max-x" type="number" value="5" placeholder="+x" title="Maximum simulation X-axis bound." />
+                            <span class="units" id="boids-max-x-units">u</span>
+                            <label for="boids-max-y">+y: </label>
+                            <input id="boids-max-y" name="boids-max-y" type="number" value="5" placeholder="+y" title="Maximum simulation Y-axis bound." />
+                            <span class="units" id="boids-max-y-units">u</span>
+                            <label for="boids-max-z">+z: </label>
+                            <input id="boids-max-z" name="boids-max-z" type="number" value="5" placeholder="+z" title="Maximum simulation Z-axis bound." />
+                            <span class="units" id="boids-max-z-units">u</span>
+                        </div>
+                    </div>
+                    <div class="control-region" data-region="interaction">
+                        <h4>Interaction</h4>
+                        <div class="control-grid">
+                            <label for="boids-interaction-radius">Interaction Radius: </label>
+                            <input id="boids-interaction-radius" name="boids-interaction-radius" type="number" min="0" value="1" placeholder="Interaction radius" title="Maximum radius of inter-boid interaction." />
+                            <label for="boids-alignment-force">Alignment Force: </label>
+                            <input id="boids-alignment-force" name="boids-alignment-force" type="number" min="0" value="1" placeholder="Alignment force" title="Magnitude of direction alignment force." />
+                            <label for="boids-alignment-bias">Alignment Bias:</label>
+                            <input id="boids-alignment-bias" name="boids-alignment-bias" type="number" min="0" value="1.5" placeholder="Alignment bias" title="Bias of direction alignment force. Values greater than 1 bias alignment forces to neighbors moving in the same direction. Values less than 1 bias alignment forces to neighbors moving in the opposite direction." />
+                            <label for="boids-cohesion-force">Cohesion Force: </label>                    
+                            <input id="boids-cohesion-force" name="boids-cohesion-force" type="number" min="0" value="1" placeholder="Cohesion force" title="Magnitude of proximity cohesion force." />
+                            <label for="boids-separation-force">Separation Force: </label>
+                            <input id="boids-separation-force" name="boids-separation-force" type="number" min="0" value="1.1" placeholder="Separation force" title="Magnitude of proximity separation force." />
+                            <label for="boids-steering-force">Steering Force: </label>
+                            <input id="boids-steering-force" name="boids-steering-force" type="number" min="0" value="0.05" placeholder="Steering force" title="Relative magnitude of direction-changing force(s)." />
+                            <label for="boids-min-speed">Minimum Speed: </label>
+                            <input id="boids-min-speed" name="boids-min-speed" type="number" min="0" value="1" placeholder="Minimum speed" title="Minimum global velocity magnitude." />
+                            <label for="boids-max-speed">Maximum Speed: </label>
+                            <input id="boids-max-speed" name="boids-max-speed" type="number" min="0" value="4" placeholder="Maximum speed" title="Maximum global velocity magnitude." />
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset class="control" data-name="simulation">
+                    <legend>Simulation</legend>
+                    <div class="control-options">
+                        <button class="sim-control" id="sim-start" data-selected="true" title="Start simulation.">Start</button>
+                        <button class="sim-control" id="sim-stop" data-selected="false" title="Stop simulation.">Stop</button>
+                    </div>
+                    <div class="control-info">
+                        <label for="sim-state" title="The current simulation state.">State: </label>
+                        <span id="sim-state" name="sim-state" title="The current simulation state.">Paused</span>
+                        <label for="sim-elapsed" title="Time elapsed since the simulation began.">Elapsed: </label>
+                        <span id="sim-elapsed" name="sim-elapsed" title="Time elapsed since the simulation began.">0:00:00</span>
+                        <label for="sim-tps" title="Simulation ticks per second.">TPS: </label>
+                        <span id="sim-tps" name="sim-tps" title="Number of updates performed per second.">0</span>
+                    </div>
+                    <div class="control-grid">
+                        <label for="auto-apply">Auto-Apply: </label>
+                        <input id="auto-apply" name="auto-apply" type="checkbox" title="Whether to automatically apply control values to the simulation when changed." />
+                        <button id="settings-apply" title="Apply all control values to the simulation.">Apply Settings</button>
+                    </div>
+                </fieldset>
+                <fieldset class="control" data-name="rendering">
+                    <legend>Rendering</legend>
+                    <div class="control-grid">
+                        <label for="boid-scale">Boid Scale: </label>
+                        <input id="boid-scale" name="boid-scale" type="number" min="0" value="0.1" placeholder="Boid scale" title="The global rendering scale of boid models." />
+                        <label for="boid-rendering">Boid Rendering: </label>
+                        <select id="boid-rendering" name="boid-rendering" title="The method used to render boids.">
+                            <option value="tetrahedron" selected="selected" title="A wireframe tetrahedron aligned with the velocity vector.">Tetrahedron</option>
+                            <option value="billboard" title="A camera-facing 2D isocoles triangle rotated to match the projected view-space velocity vector.">Billboard</option>
+                            <option value="none" title="No model is rendered.">None</option>
+                        </select>
+                        <label for="render-interaction-radius">Render Radius: </label>
+                        <input id="render-interaction-radius" name="render-interaction-radius" type="checkbox" title="Whether to render the interaction radius of each boid." />
+                        <label for="render-bounds">Render Bounds: </label>
+                        <input id="render-bounds" name="render-bounds" type="checkbox" checked="checked" title="Whether to render the simulation bounds." />
+                        <label for="render-tree">Render Tree: </label>
+                        <input id="render-tree" name="render-tree" type="checkbox" title="Whether to render the space-partitioning octree." />
+                    </div>
+                    <hr />
+                    <h4>Boid Neighbor Count</h4>
+                    <div class="control-grid" data-type="minmax-color">
+                        <label for="boid-color-min">Min: </label>
+                        <input id="boid-color-min" name="boid-color-min" type="color" value="#ff3f3f" title="The color used by boids with 0 neighbors." />
+                        <label for="boid-color-max">Max: </label>
+                        <input id="boid-color-max" name="boid-color-max" type="color" value="#3fff3f" title="The color used by boids with the maximum number of neighbors." />
+                        <div class="color-gradient" id="boid-color-gradient" title="The gradient of possible boid colors given the minimum color, maximum color, and simulation accuracy value."></div>
+                    </div>
+                    <h4>Interaction Radius Color</h4>
+                    <div class="control-grid" data-type="minmax-color">
+                        <label for="radius-color">Color: </label>
+                        <input id="radius-color" name="radius-color" type="color" value="#ff3fff" title="The color of the interaction radius billboard." />
+                        <label for="radius-alpha">Alpha: </label>
+                        <input id="radius-alpha" name="radius-alpha" type="number" min="0" max="1" value="0.125" title="The relative opacity of the interaction radius billboard. True opacity is this value multiplied by the relative number of neighbors of a given boid." />
+                    </div>
+                    <h4>Bounds Color</h4>
+                    <div class="control-grid" data-type="minmax-color">
+                        <label for="bounds-color">Color: </label>
+                        <input id="bounds-color" name="bounds-color" type="color" value="#ffffff" title="The color of the simulation bounds wireframe." />
+                        <label for="bounds-alpha">Alpha: </label>
+                        <input id="bounds-alpha" name="bounds-alpha" type="number" min="0" max="1" value="0.4" title="The global opacity of the simulation bounds wireframe." />
+                    </div>
+                    <h4>Tree Color</h4>
+                    <div class="control-grid" data-type="minmax-color">
+                        <label for="tree-color">Color: </label>
+                        <input id="tree-color" name="tree-color" type="color" value="#3f3fff" title="The color of the space-partitioning octree wireframe." />
+                        <label for="tree-alpha">Alpha: </label>
+                        <input id="tree-alpha" name="tree-alpha" type="number" min="0" max="1" value="0.2" title="The relative opacity of the space-partitioning octree wireframe. True opacity is this value multiplied by the relative occupancy of a given volume." />
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        <script type="module" src="./static/js/index.js"></script>
+    </body>
+</html>

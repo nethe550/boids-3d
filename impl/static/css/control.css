@@ -1,0 +1,351 @@
+div.panel#control-panel {
+
+    overflow-x: hidden;
+    overflow-y: auto;
+
+}
+
+div.panel#control-panel input {
+
+    min-width: 0;
+    display: block;
+
+}
+
+fieldset.control {
+
+    border: 1px solid var(--color-4);
+    border-radius: var(--radius-2);
+
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--radius-2);
+
+}
+
+fieldset.control > legend {
+
+    color: var(--font-color-3);
+
+    user-select: none;
+
+}
+
+fieldset.control hr {
+
+    width: 100%;
+
+    color: var(--font-color-3);
+
+    border-width: 1px;
+
+}
+
+div.control-options {
+
+    display: flex;
+    flex-direction: row;
+    column-gap: var(--radius-3);
+
+}
+
+div.control-options > button {
+
+    flex-grow: 1;
+
+    padding: var(--radius-3) var(--radius-2);
+
+}
+
+div.control-options > button[data-selected="true"] {
+
+    color: var(--font-color-1);
+
+    background: var(--color-3);
+
+    border-color: var(--font-color-3);
+
+}
+
+button[data-inverted="false"][data-selected="false"]:hover, button[data-inverted="true"][data-selected="true"]:hover {
+
+    cursor: pointer;
+
+}
+
+button[data-inverted="false"][data-selected="true"]:hover {
+
+    color: var(--font-color-1) !important;
+
+    background: var(--color-3) !important;
+
+    border-color: var(--font-color-3) !important;
+
+    cursor: not-allowed;
+
+}
+
+button[data-inverted="true"][data-selected="false"]:hover {
+
+    color: var(--font-color-3) !important;
+
+    background: var(--color-1) !important;
+
+    border-color: var(--color-3) !important;
+
+    cursor: not-allowed;
+
+}
+
+button[data-inverted="true"][data-selected="false"]:focus {
+
+    border-color: var(--color-3) !important;
+
+}
+
+div.control-grid {
+
+    display: grid;
+    column-gap: var(--radius-3);
+    row-gap: var(--radius-2);
+
+}
+
+div.control-grid > label, fieldset.control > div.control-grid > span {
+
+    color: var(--font-color-2);
+
+    white-space: nowrap;
+
+    user-select: none;
+
+}
+
+div.control-grid > span {
+
+    text-align: right;
+
+}
+
+div.control-grid > input {
+
+    flex: 1;
+
+    text-align: right;
+
+}
+
+div.control-region {
+
+    display: flex;
+    flex-direction: column;
+
+}
+
+div.control-region > h4 {
+
+    color: var(--font-color-2);
+
+    margin: 0;
+
+}
+
+div.control-info {
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+}
+
+div.control-info > label {
+
+    color: var(--font-color-2);
+
+}
+
+div.control-info > span {
+
+    text-align: right;
+
+}
+
+div.control-region > div.control-grid {
+
+    margin-left: var(--radius-1);
+
+}
+
+div.control-region > div.control-grid > label {
+
+    color: var(--font-color-3);
+
+}
+
+@media screen and (min-width: 775px) {
+
+    div.panel#control-panel {
+
+        flex-grow: 1;
+
+        max-width: 300px;
+
+        display: flex;
+        flex-direction: column;
+        row-gap: var(--radius-1);
+
+    }
+
+}
+
+@media screen and (max-width: 775px) {
+
+    div.panel#control-panel {
+
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+@media screen and (max-width: 575px) {
+
+    div.panel#control-panel {
+
+        display: flex;
+        flex-direction: column;
+        row-gap: var(--radius-1);
+
+    }
+
+}
+
+fieldset.control[data-name="projection"] div.control-grid {
+
+    grid-template-columns: min-content auto min-content;
+
+}
+
+div.control-grid[data-type="vector"] {
+
+    grid-template-columns: min-content auto min-content min-content auto min-content min-content auto min-content !important;
+
+}
+
+div.control-grid[data-type="vector"] > label {
+
+    margin-left: 0.333em;
+
+}
+
+span.units {
+
+    font-size: 0.8rem;
+    color: var(--font-color-3);
+
+    align-self: end;
+
+    user-select: none;
+
+}
+
+fieldset.control[data-name="view"] div.control-grid > label {
+
+    text-align: right;
+
+}
+
+fieldset.control[data-name="boids"] div.control-region[data-region="environment"] div.control-grid {
+
+    grid-template-columns: min-content auto;
+
+}
+
+fieldset.control[data-name="boids"] div.control-region[data-region="interaction"] div.control-grid {
+
+    grid-template-columns: min-content auto;
+
+}
+
+fieldset.control[data-name="simulation"] div.control-grid {
+
+    grid-template-columns: min-content auto 50%;
+
+}
+
+fieldset.control[data-name="simulation"] div.control-info > label, fieldset.control[data-name="simulation"] div.control-info > span {
+
+    user-select: none;
+
+}
+
+fieldset.control h4 {
+
+    margin: 0;
+
+    user-select: none;
+
+}
+
+fieldset.control[data-name="rendering"] div.control-grid {
+
+    grid-template-columns: min-content auto;
+
+}
+
+fieldset.control[data-name="rendering"] div.control-grid > input[type="checkbox"] {
+
+    max-width: fit-content;
+
+    margin-left: auto;
+
+}
+
+fieldset.control[data-name="rendering"] div.control-grid[data-type="minmax-color"] {
+
+    grid-template-columns: min-content auto min-content auto;
+
+}
+
+fieldset.control[data-name="rendering"] div.control-grid[data-type="minmax-color"] > label {
+
+    margin: auto 0;
+
+}
+
+fieldset.control[data-name="rendering"] div.control-grid[data-type="minmax-color"] > input[type="color"] {
+
+    width: 100%;
+
+}
+
+fieldset.control[data-name="rendering"] div.control-grid[data-type="minmax-color"] > div.color-gradient {
+
+    grid-column: 1 / -1;
+
+    width: 100%;
+    height: 1.5em;
+
+    background: rgb(0,0,0);
+
+    border: 1px solid var(--font-color-2);
+    border-radius: var(--radius-2);
+
+    box-shadow: inset 0 0 var(--radius-2) 0 rgb(0,0,0);
+
+}
+
+div.color-gradient#boid-color-gradient {
+
+    background: linear-gradient(
+        90deg, 
+      #ff3f3f 0%,    #ff3f3f 12.5%,
+      #e45a3f 12.5%, #e45a3f 25%,
+      #c8763f 25%,   #c8763f 37.5%,
+      #ac913f 37.5%, #ac913f 50%,
+      #91ac3f 50%,   #91ac3f 62.5%,
+      #76c83f 62.5%, #76c83f 75%,
+      #5ae43f 75%,   #5ae43f 87.5%,
+      #3fff3f 87.5%, #3fff3f 100%
+    );
+
+}
