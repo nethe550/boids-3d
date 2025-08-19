@@ -1,3 +1,11 @@
+/**
+ * @file An abstraction and manager of a {@link HTMLCanvasElement}.
+ * @author nethe550
+ * @license MIT
+ * @version 1.0.0
+ */
+
+
 import { vec2, vec_sub } from '../util/vector.js';
 
 /**

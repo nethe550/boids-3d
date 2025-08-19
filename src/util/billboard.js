@@ -1,3 +1,10 @@
+/**
+ * @file Billboard operations and utilities. 
+ * @author nethe550
+ * @license MIT
+ * @version 1.0.0
+ */
+
 import { vec3, vec_add, vec_mul, vec_norm } from './vector.js';
 import { mat4x4 } from './matrix.js';
 

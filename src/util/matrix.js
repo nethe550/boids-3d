@@ -1,3 +1,10 @@
+/**
+ * @file Matrix operations and utilities. 
+ * @author nethe550
+ * @license MIT
+ * @version 1.1.0
+ */
+
 import * as vector from './vector.js';
 
 /**

@@ -1,3 +1,10 @@
+/**
+ * @file A {@link Boids} simulation renderer.
+ * @author nethe550
+ * @license MIT
+ * @version 1.0.0
+ */
+
 import { vec2, vec3, vec4, vec3_to_vec4, vec_add, vec_sub, vec_mul, vec_div, vec_dot, vec_lerp, vec_norm, vec3_cross, vec3_color_hex, vec4_color_hex, vec4_to_vec2 } from '../util/vector.js';
 import { mat4x4, mat4x4_mul_vec3, mat4x4_mul_vec4 } from '../util/matrix.js';
 import { billboard_polyline, billboard_ngon, billboard_mat4x4 } from '../util/billboard.js';

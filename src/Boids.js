@@ -1,3 +1,10 @@
+/**
+ * @file A bird flocking simulation manager.
+ * @author nethe550
+ * @license MIT
+ * @version 1.0.0
+ */
+
 import { vec3, vec_add, vec_sub, vec_mul, vec_norm, vec_smag, vec_mag, vec_dot } from './util/vector.js';
 import Octree from './util/Octree.js';
 

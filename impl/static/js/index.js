@@ -1,3 +1,10 @@
+/**
+ * @file The application entrypoint.
+ * @author nethe550
+ * @license MIT
+ * @version 1.0.0
+ */
+
 import { vec_lerp, vec3_color_hex } from '../../../src/util/vector.js';
 import { StateStore, StateActionTypes, RendererViewTypes } from './StateStore.js';
 import Manager from './Manager.js';

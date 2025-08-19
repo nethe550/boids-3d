@@ -1,3 +1,10 @@
+/**
+ * @file A collection of UI element managers.
+ * @author nethe550
+ * @license MIT
+ * @version 1.0.0
+ */
+
 import { vec3, vec3_color_hex, color_vec3_hex } from '../../../src/util/vector.js';
 
 /**

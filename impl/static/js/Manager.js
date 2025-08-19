@@ -1,3 +1,10 @@
+/**
+ * @file The application manager.
+ * @author nethe550
+ * @license MIT
+ * @version 1.0.0
+ */
+
 import { vec2, vec3, vec_add, vec_sub, vec_mul } from '../../../src/util/vector.js';
 import { mat4x4_inv, mat4x4_transform, mat4x4_projection, mat4x4_lookat } from '../../../src/util/matrix.js';
 import Boids from '../../../src/Boids.js';

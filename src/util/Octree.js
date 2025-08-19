@@ -1,3 +1,10 @@
+/**
+ * @file A recursive 3D space-partitioning tree.
+ * @author nethe550
+ * @license MIT
+ * @version 1.0.0
+ */
+
 import { vec3, vec3_to_vec4, vec4_to_vec3, vec_add, vec_sub, vec_mul, vec_smag } from './vector.js';
 import Renderer from '../dom/Renderer.js';
 

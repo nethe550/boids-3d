@@ -1,4 +1,11 @@
 /**
+ * @file Vector operations and utilities. 
+ * @author nethe550
+ * @license MIT
+ * @version 1.1.0
+ */
+
+/**
  * @typedef {[number, number]} Vector2
  * @typedef {[number, number, number]} Vector3
  * @typedef {[number, number, number, number]} Vector4
